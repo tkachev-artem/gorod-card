@@ -4,9 +4,8 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { api } from '@/lib/api';
 import { getCookie, setCookie } from '@/utils/cookies';
-import { Header } from '@/components/lk/header';
-import { LeftColumn } from '@/components/lk/left-column';
-import { RightColumn } from '@/components/lk/right-column';
+import { Header } from './structure/components/header';
+import { Main } from './structure/main';
 import { Loading } from '@/components/lk/loading';
 import { LkConfig } from './config';
 
@@ -183,21 +182,13 @@ export default function PersonalAccount() {
             />
             
             {/* Основной контент */}
-            <div className={LkConfig.content.container}>
-                {/* Левая колонка */}
-                <LeftColumn 
-                    rubleBalance={rubleBalance}
-                    bonusBalance={bonusBalance}
-                    onNavigate={handleNavigate}
-                />
-                
-                {/* Правая колонка */}
-                <RightColumn 
-                    cardNumber={cardNumber}
-                    onAddCard={handleAddCard}
-                    onNavigate={handleNavigate}
-                />
-            </div>
+            <Main 
+                rubleBalance={rubleBalance}
+                bonusBalance={bonusBalance}
+                cardNumber={cardNumber}
+                onAddCard={handleAddCard}
+                onNavigate={handleNavigate}
+            />
         </div>
     );
 }

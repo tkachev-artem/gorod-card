@@ -11,8 +11,8 @@ export const LkConfig = {
             container: "flex-1 flex flex-wrap items-center gap-2",
             activeButton: "px-4 py-2 bg-gray-100 rounded-xl flex items-center gap-2",
             button: "px-4 py-2 bg-white rounded-xl flex items-center gap-2",
-            activeText: "text-black text-xl",
-            text: "text-gray-900 text-xl"
+            activeText: "text-black text-lg font-semibold",
+            text: "text-gray-500 text-lg font-semibold"
         },
         profile: {
             container: "flex items-center gap-4 relative"

@@ -27,8 +27,9 @@ export function Card({
 
     return (
         <div 
-            className="w-full h-52 p-5 bg-white rounded-xl border-2 border-gray-300 relative hover:border-blue-400 transition-colors duration-300 cursor-pointer z-10"
+            className="w-full h-[212px] p-5 bg-white rounded-xl border-2 border-gray-300 relative hover:border-blue-400 transition-colors duration-300 cursor-pointer z-10"
             onClick={handleCardClick}
+            style={{ maxWidth: '340px' }}
         >
             {/* Фоновое изображение на всю карту */}
             <div className="absolute inset-0 rounded-xl overflow-hidden">

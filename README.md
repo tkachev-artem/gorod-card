@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Город Карта
 
-## Getting Started
+Сервис "Город Карта" для городских платежей, покупки билетов и доступа к городским услугам.
 
-First, run the development server:
+## Структура проекта
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+src/
+  ├── app/                 # Директория Next.js App Router
+  │   ├── components/       # Общие компоненты приложения
+  │   │   ├── ui/           # Малые переиспользуемые компоненты (кнопки, поля ввода и т.д.)
+  │   │   └── section/      # Готовые секции для повторного использования
+  │   ├── lk/               # Страница личного кабинета
+  │   │   ├── structure/     # Основная структура страницы
+  │   │   │   ├── components/ # Компоненты конкретно для этой страницы
+  │   │   │   ├── header.tsx  # Компонент хедера
+  │   │   │   └── main.tsx    # Основной контент
+  │   │   ├── page.tsx       # Страница (основной контейнер)
+  │   │   └── config.ts      # Конфигурация страницы
+  │   ├── auth/             # Страница авторизации
+  │   └── card/             # Страница карты
+  ├── hooks/               # React хуки
+  │   └── api/              # Хуки для работы с API
+  ├── lib/                 # Библиотеки и утилиты
+  ├── utils/               # Вспомогательные функции
+  └── types/               # TypeScript типы
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Технологии
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Next.js 14+ с App Router
+- TypeScript
+- Tailwind CSS
+- API интеграция
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Разработка
 
-## Learn More
+### Запуск проекта
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Установка зависимостей
+npm install
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Запуск в режиме разработки
+npm run dev
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Сборка проекта
+npm run build
 
-## Deploy on Vercel
+# Запуск собранного проекта
+npm start
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Добавление новой страницы
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Создайте директорию в `src/app/[страница]`
+2. Добавьте файлы:
+   - `page.tsx` - основной компонент страницы
+   - `config.ts` - настройки страницы
+   - `structure/` - основная структура страницы
+   - `structure/components/` - компоненты для страницы
+
+## Соглашения по коду
+
+- Используйте раннее возвращение (early return)
+- Используйте классы Tailwind для стилизации элементов
+- Используйте описательные имена переменных и функций
+- Обработчики событий должны начинаться с "handle", например "handleClick"
+- Реализуйте функции доступности для элементов

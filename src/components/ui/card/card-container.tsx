@@ -409,11 +409,13 @@ export function CardContainer({
                     </button>
                 </div>
             ) : (
-                <Card 
-                    isActive={isActive}
-                    cardNumber={cardNumber}
-                    backgroundImage={backgroundImage}
-                />
+                <div className="flex justify-center w-full">
+                    <Card 
+                        isActive={isActive}
+                        cardNumber={cardNumber}
+                        backgroundImage={backgroundImage}
+                    />
+                </div>
             )}
         </div>
     );
