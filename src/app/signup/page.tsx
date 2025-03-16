@@ -1,13 +1,13 @@
 "use client";
-import { Logo } from '@/components/ui/logo/logo';
+import { Logo } from '@/app/lk/structure/components/ui/logo/logo';
 import { BodyConfig, HeaderConfig, SignupGridConfig } from './config';
-import { Info } from '@/components/ui/text/info';
-import { Form } from '@/components/ui/form/form';
-import { BigButton } from '@/components/ui/button/big-button';
+import { Info } from '@/app/lk/structure/components/ui/text/info';
+import { Form } from '@/app/lk/structure/components/ui/form/form';
+import { BigButton } from '@/app/lk/structure/components/ui/button/big-button';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { api } from '@/lib/api';
+import { api } from '@/app/lk/structure/lib/api';
 
 export default function Signup() {
     const [firstName, setFirstName] = useState('');

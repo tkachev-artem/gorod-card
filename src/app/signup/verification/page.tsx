@@ -1,12 +1,12 @@
 "use client";
-import { Info } from "@/components/ui/text/info";
+import { Info } from "@/app/lk/structure/components/ui/text/info";
 import { VerificationGridConfig, HeaderConfig, BodyConfig } from "./config";
-import { Logo } from "@/components/ui/logo/logo";
-import { VerificationBox } from "@/components/ui/verification/verification-box";
-import { BigButton } from "@/components/ui/button/big-button";
+import { Logo } from "@/app/lk/structure/components/ui/logo/logo";
+import { VerificationBox } from "@/app/lk/structure/components/ui/verification/verification-box";
+import { BigButton } from "@/app/lk/structure/components/ui/button/big-button";
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { api } from '@/lib/api';
+import { api } from '@/app/lk/structure/lib/api';
 
 export default function VerificationPage() {
     const [pin, setPin] = useState(['', '', '', '', '', '']);

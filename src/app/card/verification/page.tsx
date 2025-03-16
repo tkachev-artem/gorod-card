@@ -1,9 +1,9 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { api } from '@/lib/api';
-import { VerificationBox } from '@/components/ui/verification/verification-box';
-import { Logo } from '@/components/ui/logo/logo';
+import { api } from '@/app/lk/structure/lib/api';
+import { VerificationBox } from '@/app/lk/structure/components/ui/verification/verification-box';
+import { Logo } from '@/app/lk/structure/components/ui/logo/logo';
 import Image from 'next/image';
 
 // Сбрасываем глобальное состояние для компонента карты

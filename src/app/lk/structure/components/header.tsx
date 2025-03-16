@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { LkConfig } from '@/app/lk/config';
-import { RightMenuPrimaryButton } from '@/components/ui/right-menu/right-menu-primary-button';
-import { RightMenuOpenMenuFace } from '@/components/ui/right-menu/right-menu-openmenu-face';
-import { RightMenuOpenMenuNotifications } from '@/components/ui/right-menu/right-menu-openmenu-notifications';
+import { RightMenuPrimaryButton } from './ui/right-menu/right-menu-primary-button';
+import { RightMenuOpenMenuFace } from './ui/right-menu/right-menu-openmenu-face';
+import { RightMenuOpenMenuNotifications } from './ui/right-menu/right-menu-openmenu-notifications';
 
 const { header } = LkConfig;
 

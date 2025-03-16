@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { api } from '@/lib/api';
+import { api } from './structure/lib/api';
 import { getCookie, setCookie } from '@/utils/cookies';
 import { Header } from './structure/components/header';
 import { Main } from './structure/main';
-import { Loading } from '@/components/lk/loading';
+import { Loading } from './structure/components/loading';
 import { LkConfig } from './config';
 
 export default function PersonalAccount() {

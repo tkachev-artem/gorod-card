@@ -6,12 +6,15 @@ interface LoadingProps {
 
 export const Loading = ({ error }: LoadingProps) => {
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-center p-4 bg-white">
-      {error ? (
-        <div className="text-red-500">{error}</div>
-      ) : (
-        <div className="text-lg text-gray-600">Загрузка...</div>
-      )}
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="text-center">
+        <p className="text-xl mb-2">Загрузка...</p>
+        {error && (
+          <p className="text-red-500 mt-2">
+            Ошибка: {error}
+          </p>
+        )}
+      </div>
     </div>
   );
 }; 

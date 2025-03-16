@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { api } from '@/lib/api';
+import { api } from '@/app/lk/structure/lib/api';
 import { getCookie, setCookie, deleteCookie } from '@/utils/cookies';
 
 interface UseAuthReturn {

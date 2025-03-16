@@ -2,8 +2,8 @@
 
 import { HeaderConfig } from "@/app/config";
 import { useRouter } from "next/navigation";
-import { Logo } from "@/components/ui/logo/logo";
-import { Button } from "@/components/ui/button/button";
+import { Logo } from "@/app/lk/structure/components/ui/logo/logo";
+import { Button } from "@/app/lk/structure/components/ui/button/button";
 import { useEffect, useState } from "react";
 
 export default function Home() {
