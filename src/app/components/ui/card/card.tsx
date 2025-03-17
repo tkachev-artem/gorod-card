@@ -5,6 +5,7 @@ import Image from 'next/image';
 interface CardProps {
   cardNumber?: string;
   backgroundImage?: string;
+  className?: string;
 }
 
 // Функция для форматирования номера карты (добавление пробелов через каждые 4 символа)
@@ -17,14 +18,15 @@ const formatCardNumber = (cardNumber: string): string => {
 
 export function Card({ 
   cardNumber = '',
-  backgroundImage = '/images/card-background.jpg'
+  backgroundImage = '/images/card-background.jpg',
+  className = ''
 }: CardProps) {
   // Форматируем номер карты, если он есть
   const formattedCardNumber = cardNumber ? formatCardNumber(cardNumber) : '';
   
   return (
     <div 
-      className="w-[340px] h-[212px] p-5 bg-white rounded-xl border-2 border-gray-300 relative hover:border-blue-400 transition-colors duration-300 cursor-pointer z-10"
+      className={`w-full aspect-[1.6/1] p-5 bg-white rounded-xl border-2 border-gray-300 relative hover:border-blue-400 transition-colors duration-300 cursor-pointer z-10 ${className}`}
     >
       {/* Фоновое изображение на всю карту */}
       <div className="absolute inset-0 rounded-xl overflow-hidden">
@@ -41,12 +43,13 @@ export function Card({
       
       {/* QR-код */}
       <div className="absolute right-5 top-5 z-10">
-        <div className="w-20 h-20 bg-blue-100 rounded-xl border-2 border-blue-400 flex items-center justify-center">
+        <div className="w-[20%] aspect-square bg-blue-100 rounded-xl border-2 border-blue-400 flex items-center justify-center">
           <Image 
             src="/icon/qr-code.svg" 
             alt="QR код" 
             width={70} 
             height={70}
+            className="w-[70%] h-[70%]"
           />
         </div>
       </div>
@@ -59,12 +62,13 @@ export function Card({
             alt="Логотип карты" 
             width={16} 
             height={35}
+            className="h-[35px] w-auto"
           />
           <span className="text-xs font-semibold">
             Виртуальная<br/>Карта горожанина
           </span>
         </div>
-        <div className="text-gray-900 text-base font-semibold">
+        <div className="text-gray-900 text-sm font-semibold">
           {formattedCardNumber}
         </div>
       </div>

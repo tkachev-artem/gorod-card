@@ -11,7 +11,7 @@ interface PhysicalCardSectionProps {
 
 export const PhysicalCardSection = ({ onNavigate }: PhysicalCardSectionProps) => {
   return (
-    <div className={physicalCard.container}>
+    <div className={`${physicalCard.container} w-full h-full flex-1 min-h-[9rem]`}>
       <div className={physicalCard.header.container}>
         <div className={physicalCard.header.icon}>
           <Image src="/icon/logo-card.svg" alt="Физическая карта" width={24} height={24} className="text-gray-900" />

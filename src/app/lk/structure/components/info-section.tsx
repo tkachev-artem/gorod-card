@@ -28,7 +28,7 @@ export const InfoSection = ({ cardNumber, onAddCard }: InfoSectionProps) => {
   ];
 
   return (
-    <div className={bottomRow.container}>
+    <div className={`${bottomRow.container} w-full h-full min-h-[312px]`}>
       <div className={bottomRow.header.container}>
         <div className={bottomRow.header.title}>Горожанин. Инфо</div>
         <button 

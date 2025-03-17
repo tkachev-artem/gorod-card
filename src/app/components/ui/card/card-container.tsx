@@ -16,7 +16,7 @@ export function CardContainer({
   // Если есть номер карты, отображаем активную карту
   if (cardNumber) {
     return (
-      <div className="w-[450px] p-4 bg-white rounded-xl border border-gray-300 flex flex-col gap-4">
+      <div className="w-full h-full min-h-[312px] p-4 bg-white rounded-xl border-[1.50px] border-gray-300 flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <div className="text-black text-base font-medium">Виртуальная карта</div>
           {onAddCard && (
@@ -29,7 +29,7 @@ export function CardContainer({
           )}
         </div>
         
-        <div className="flex justify-center">
+        <div className="flex-1 p-4">
           <Card 
             cardNumber={cardNumber}
             backgroundImage={backgroundImage}
@@ -41,7 +41,7 @@ export function CardContainer({
 
   // Иначе показываем заглушку для добавления карты
   return (
-    <div className="w-[450px] p-4 bg-white rounded-xl border border-gray-300 flex flex-col gap-4">
+    <div className="w-full h-full min-h-[312px] p-4 bg-white rounded-xl border-[1.50px] border-gray-300 flex flex-col gap-4">
       <div className="flex items-center">
         <div className="text-black text-base font-medium">Виртуальная карта</div>
       </div>

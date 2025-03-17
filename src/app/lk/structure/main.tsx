@@ -1,9 +1,14 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { LkConfig } from '../config';
-import { LeftColumn } from './components/left-column';
-import { RightColumn } from './components/right-column';
+import { AccountsSection } from './components/accounts-section';
+import { ShopSection } from './components/shop-section';
+import { CardContainer } from '@/app/components/ui/card/card-container';
+import { TicketsSection } from './components/tickets-section';
+import { MyTicketsSection } from './components/my-tickets-section';
+import { RoutesSection } from './components/routes-section';
+import { PhysicalCardSection } from './components/physical-card-section';
+import { InfoSection } from './components/info-section';
 
 interface MainProps {
   rubleBalance: number;
@@ -22,56 +27,71 @@ export const Main = ({
 }: MainProps) => {
   const mainRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    // Функция для синхронизации высоты
-    const syncCardHeight = () => {
-      // Проверяем только для desktop разрешений
-      if (window.innerWidth < 1024) return;
-
-      const syncGroup = mainRef.current?.querySelector('[data-card-height-sync]');
-      const cardContainer = mainRef.current?.querySelector('.card-container-wrapper');
-      
-      if (syncGroup && cardContainer) {
-        const syncGroupHeight = syncGroup.getBoundingClientRect().height;
-        (cardContainer as HTMLElement).style.height = `${syncGroupHeight}px`;
-      }
-    };
-
-    // Первичная синхронизация
-    syncCardHeight();
-    
-    // Добавляем слушатель изменения размера окна
-    window.addEventListener('resize', syncCardHeight);
-
-    // Очистка слушателя при размонтировании
-    return () => {
-      window.removeEventListener('resize', syncCardHeight);
-    };
-  }, []);
-
   // Добавляем отладочную информацию
   useEffect(() => {
     console.log('Main - cardNumber:', cardNumber);
   }, [cardNumber]);
 
   return (
-    <main ref={mainRef} className="w-full flex-1 flex flex-col lg:flex-row gap-6 items-start">
-      {/* Левая колонка */}
-      <div className="w-full lg:w-[250px] flex flex-col gap-6 sticky top-6">
-        <LeftColumn 
-          rubleBalance={rubleBalance}
-          bonusBalance={bonusBalance}
-          onNavigate={onNavigate}
-        />
-      </div>
-      
-      {/* Правая колонка */}
-      <div className="flex-1 flex flex-col gap-6">
-        <RightColumn 
-          cardNumber={cardNumber}
-          onAddCard={onAddCard}
-          onNavigate={onNavigate}
-        />
+    <main ref={mainRef} className="min-h-screen w-full flex flex-col">
+      <div className="flex flex-col gap-6 w-full flex-1">
+        {/* Верхний контейнер */}
+        <div className="flex flex-col lg:flex-row gap-6 w-full">
+          {/* Левая колонка с AccountsSection и ShopSection */}
+          <div className="flex flex-col gap-6 w-full lg:w-1/5 shrink-0">
+            <div className="w-full h-full">
+              <AccountsSection 
+                rubleBalance={rubleBalance}
+                bonusBalance={bonusBalance}
+              />
+            </div>
+            
+            <div className="w-full h-full">
+              <ShopSection onNavigate={onNavigate} />
+            </div>
+          </div>
+          
+          {/* Правый ряд с CardContainer, TicketsSection и MyTicketsSection */}
+          <div className="flex flex-col md:flex-row gap-6 w-full flex-1">
+            <div className="w-full h-full md:w-1/3">
+              <CardContainer 
+                cardNumber={cardNumber || undefined}
+                onAddCard={onAddCard}
+                backgroundImage="/images/card-background.jpg"
+              />
+            </div>
+            
+            <div className="w-full h-full flex-1">
+              <TicketsSection onNavigate={onNavigate} />
+            </div>
+            
+            <div className="w-full h-full flex-1">
+              <MyTicketsSection />
+            </div>
+          </div>
+        </div>
+        
+        {/* Нижний единый контейнер */}
+        <div className="flex flex-col lg:flex-row gap-6 w-full">
+          {/* Левая колонка с RoutesSection и PhysicalCardSection */}
+          <div className="flex flex-col gap-6 w-full lg:w-1/5 shrink-0">
+            <div className="w-full h-full">
+              <RoutesSection onNavigate={onNavigate} />
+            </div>
+            
+            <div className="w-full h-full">
+              <PhysicalCardSection onNavigate={onNavigate} />
+            </div>
+          </div>
+          
+          {/* Правая часть с InfoSection */}
+          <div className="flex-1 w-full h-full">
+            <InfoSection 
+              cardNumber={cardNumber}
+              onAddCard={onAddCard}
+            />
+          </div>
+        </div>
       </div>
     </main>
   );
