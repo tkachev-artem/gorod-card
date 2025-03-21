@@ -11,7 +11,7 @@ interface RoutesSectionProps {
 
 export const RoutesSection = ({ onNavigate }: RoutesSectionProps) => {
   return (
-    <div className={`${routes.container} w-full h-full flex-1 min-h-[9rem]`}>
+    <div className={`${routes.container} w-full h-full min-h-[9rem]`}>
       <div className={routes.header.container}>
         <div className={routes.header.icon}>
           <Image src="/icon/beach.umbrella.svg" alt="Туристические маршруты" width={24} height={24} className="text-red-400" />

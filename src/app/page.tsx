@@ -24,6 +24,14 @@ export default function Home() {
     }
   };
 
+  const handleLk2Click = () => {
+    if (isAuthenticated) {
+      router.push('/lk2');
+    } else {
+      router.push('/auth');
+    }
+  };
+
   return (
     <div>
       <header className={HeaderConfig.container}>
@@ -33,13 +41,19 @@ export default function Home() {
           <Logo/>
         </button>
 
-        <Button
-          text={HeaderConfig.lkbutton.text}
-          onClick={handleLkClick}
-          goto={undefined}
-        />
-
-
+        <div className="flex gap-4">
+          <Button
+            text={HeaderConfig.lkbutton.text}
+            onClick={handleLkClick}
+            goto={undefined}
+          />
+          
+          <Button
+            text="Личный кабинет 2"
+            onClick={handleLk2Click}
+            goto={undefined}
+          />
+        </div>
       </header>
     </div>
   );

@@ -41,18 +41,6 @@ export function Card({
         )}
       </div>
       
-      {/* QR-код */}
-      <div className="absolute right-5 top-5 z-10">
-        <div className="w-[20%] aspect-square bg-blue-100 rounded-xl border-2 border-blue-400 flex items-center justify-center">
-          <Image 
-            src="/icon/qr-code.svg" 
-            alt="QR код" 
-            width={70} 
-            height={70}
-            className="w-[70%] h-[70%]"
-          />
-        </div>
-      </div>
 
       {/* Нижняя часть с логотипом и номером */}
       <div className="absolute bottom-5 flex items-center gap-4">
@@ -61,15 +49,18 @@ export function Card({
             src="/icon/logo-card.svg" 
             alt="Логотип карты" 
             width={16} 
-            height={35}
-            className="h-[35px] w-auto"
+            height={50}
+            className="h-[50px] w-auto"
           />
-          <span className="text-xs font-semibold">
-            Виртуальная<br/>Карта горожанина
-          </span>
-        </div>
-        <div className="text-gray-900 text-sm font-semibold">
-          {formattedCardNumber}
+          <div className="flex flex-col gap-1">
+            <span className="text-xs font-semibold">
+              Виртуальная<br/>Карта горожанина
+            </span>
+
+            <div className="text-gray-900 text-sm font-semibold">
+              {formattedCardNumber}
+            </div>
+          </div>
         </div>
       </div>
     </div>
