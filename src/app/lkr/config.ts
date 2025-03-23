@@ -2,7 +2,7 @@ export const LkrConfig = {
     container: "w-full min-h-screen p-6 bg-white flex flex-col gap-6",
     
     header: {
-        container: "w-full flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-6",
+        container: "w-full flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-6 px-0",
         logo: {
             container: "w-full lg:w-[250px] flex items-center gap-4",
             title: "text-black text-base"

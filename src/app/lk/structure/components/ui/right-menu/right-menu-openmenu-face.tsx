@@ -1,31 +1,25 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { deleteCookie } from '@/utils/cookies';
 import { RightMenuInButton } from './right-menu-in-button';
 
 export const RightMenuOpenMenuFace = () => {
     const router = useRouter();
     
-    const handleLogout = async () => {
-        console.log('Выход из системы...');
+    const handleLogout = () => {
         // Удаляем токен из localStorage
-        localStorage.removeItem('authToken');
-        console.log('Токен удален из localStorage');
-        
-        // Удаляем cookie с токеном через API
         try {
-            const response = await fetch('/api/logout', {
-                method: 'POST',
-                credentials: 'include',
-            });
-            console.log('Ответ от сервера при выходе:', response.status);
-        } catch (error) {
-            console.error('Ошибка при выходе из системы:', error);
+            localStorage.removeItem('authToken');
+        } catch (e) {
+            console.error('Ошибка при удалении токена из localStorage:', e);
         }
-
+        
+        // Удаляем cookie с токеном
+        deleteCookie('authToken');
+        
         // Перенаправляем на страницу авторизации
-        console.log('Перенаправление на страницу авторизации');
-        window.location.href = '/auth';
+        router.push('/auth');
     };
 
     const handleNavigate = (path: string) => {

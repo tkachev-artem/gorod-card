@@ -3,11 +3,11 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { api } from './structure/lib/api';
-import { getCookie, setCookie } from '@/utils/cookies';
+import { getCookie, setCookie, deleteCookie } from '@/utils/cookies';
 import { Header } from './structure/components/header';
-import { Main } from './structure/main';
+import { Main } from '../lkr/structure/main';
 import { Loading } from './structure/components/loading';
-import { LkConfig } from './config';
+import { LkrConfig } from '../lkr/config';
 
 export default function PersonalAccount() {
     const router = useRouter();
@@ -21,8 +21,7 @@ export default function PersonalAccount() {
     const [bonusBalance, setBonusBalance] = useState(0);
 
     useEffect(() => {
-        console.log('Страница личного кабинета загружена');
-        const checkAuth = () => {
+        const checkAuth = async () => {
             try {
                 // Проверяем авторизацию по куки
                 const token = getCookie('authToken');
@@ -39,21 +38,65 @@ export default function PersonalAccount() {
                 
                 // Если токен найден в localStorage, но не в куки, сохраняем его в куки
                 if (localToken && !token) {
-                    console.log('Токен найден в localStorage, сохраняем в cookie');
                     setCookie('authToken', localToken);
                 }
                 
-                const isAuth = !!(token || localToken);
-                console.log('Токен авторизации:', isAuth ? 'Присутствует' : 'Отсутствует');
+                const authToken = token || localToken;
+                const isAuth = !!authToken;
                 
-                setIsAuthorized(isAuth);
-                
+                // Если токен не найден ни в куках, ни в localStorage - не авторизован
                 if (!isAuth) {
-                    console.log('Перенаправление на страницу авторизации');
+                    // Очищаем все токены на всякий случай
+                    try {
+                        localStorage.removeItem('authToken');
+                    } catch (e) {
+                        console.error('Ошибка при удалении токена из localStorage:', e);
+                    }
+                    deleteCookie('authToken');
+                    
+                    // Устанавливаем состояние и перенаправляем
+                    setIsAuthorized(false);
                     router.push('/auth');
                     return false;
                 }
                 
+                // Проверяем валидность токена с сервером
+                try {
+                    // Отключаем проверку валидности токена на сервере, 
+                    // если эндпоинт /api/auth/validate еще не реализован
+                    // В будущем можно раскомментировать для проверки валидности
+                    /*
+                    const response = await fetch('/api/auth/validate', {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${authToken}`
+                        }
+                    });
+                    
+                    if (!response.ok) {
+                        // Токен невалидный, очищаем и перенаправляем
+                        try {
+                            localStorage.removeItem('authToken');
+                        } catch (e) {
+                            console.error('Ошибка при удалении токена из localStorage:', e);
+                        }
+                        deleteCookie('authToken');
+                        
+                        setIsAuthorized(false);
+                        router.push('/auth');
+                        return false;
+                    }
+                    */
+                    
+                    // Пока считаем, что если токен есть, то он валидный
+                    console.log('Проверка валидности токена пропущена, пользователь считается авторизованным');
+                } catch (e) {
+                    // Если запрос не удался, считаем пользователя авторизованным
+                    // (например, в случае проблем с сетью, не будем выкидывать пользователя)
+                    console.error('Ошибка при проверке токена:', e);
+                }
+                
+                setIsAuthorized(true);
                 return true;
             } catch (error) {
                 console.error('Ошибка при проверке авторизации:', error);
@@ -64,21 +107,41 @@ export default function PersonalAccount() {
             }
         };
         
-        const isAuth = checkAuth();
-        if (isAuth) {
-            fetchCardInfo();
-            fetchBalances();
-        }
-        setIsLoading(!isAuth);
+        const checkAndLoadData = async () => {
+            setIsLoading(true);
+            const isAuth = await checkAuth();
+            if (isAuth) {
+                try {
+                    await Promise.all([
+                        fetchCardInfo(),
+                        fetchBalances()
+                    ]);
+                } catch (error) {
+                    console.error('Ошибка при загрузке данных:', error);
+                }
+            }
+            setIsLoading(false);
+        };
+        
+        checkAndLoadData();
     }, [router]);
 
     // Добавляем эффект для обновления информации о карте при каждом возвращении на страницу
     useEffect(() => {
         // Если пользователь авторизован и страница уже загружена, обновляем информацию о карте
-        if (isAuthorized && !isLoading) {
-            console.log('Обновление информации о карте при возвращении на страницу');
-            fetchCardInfo();
-            fetchBalances();
+        if (isAuthorized === true && !isLoading) {
+            const refreshData = async () => {
+                try {
+                    await Promise.all([
+                        fetchCardInfo(),
+                        fetchBalances()
+                    ]);
+                } catch (error) {
+                    console.error('Ошибка при обновлении данных:', error);
+                }
+            };
+            
+            refreshData();
         }
     }, [isAuthorized, isLoading]);
 
@@ -90,17 +153,16 @@ export default function PersonalAccount() {
             }
         } catch (error) {
             console.error('Ошибка при получении информации о карте:', error);
-        } finally {
-            setIsLoading(false);
         }
     };
 
     const fetchBalances = async () => {
         try {
-            // Здесь должен быть запрос к API для получения балансов
-            // Пока используем заглушку
-            setRubleBalance(0);
-            setBonusBalance(0);
+            const rubleBalanceInfo = await api.balance.getRubleBalance();
+            const bonusBalanceInfo = await api.balance.getBonusBalance();
+            
+            setRubleBalance(rubleBalanceInfo.balance);
+            setBonusBalance(bonusBalanceInfo.balance);
         } catch (error) {
             console.error('Ошибка при получении информации о балансах:', error);
         }
@@ -108,6 +170,14 @@ export default function PersonalAccount() {
 
     const handleAddCard = async () => {
         if (!isAuthorized) {
+            // Очищаем токены и перенаправляем
+            try {
+                localStorage.removeItem('authToken');
+            } catch (e) {
+                console.error('Ошибка при удалении токена из localStorage:', e);
+            }
+            deleteCookie('authToken');
+            
             router.push('/auth');
             return;
         }
@@ -130,6 +200,14 @@ export default function PersonalAccount() {
                 errorMessage.includes('auth') || 
                 errorMessage.includes('401')
             ) {
+                // Неавторизован, очищаем токены
+                try {
+                    localStorage.removeItem('authToken');
+                } catch (e) {
+                    console.error('Ошибка при удалении токена из localStorage:', e);
+                }
+                deleteCookie('authToken');
+                
                 setIsAuthorized(false);
                 router.push('/auth');
                 return;
@@ -171,24 +249,28 @@ export default function PersonalAccount() {
     }
     
     return (
-        <div className={LkConfig.container}>
+        <div className="w-full min-h-screen bg-white flex flex-col gap-6">
             {/* Верхняя панель */}
-            <Header 
-                onNavigate={handleNavigate}
-                isMenuOpen={isMenuOpen}
-                isNotificationsOpen={isNotificationsOpen}
-                onMenuToggle={handleMenuToggle}
-                onNotificationsToggle={handleNotificationsToggle}
-            />
+            <div className="px-6 pt-6">
+                <Header 
+                    onNavigate={handleNavigate}
+                    isMenuOpen={isMenuOpen}
+                    isNotificationsOpen={isNotificationsOpen}
+                    onMenuToggle={handleMenuToggle}
+                    onNotificationsToggle={handleNotificationsToggle}
+                />
+            </div>
             
             {/* Основной контент */}
-            <Main 
-                rubleBalance={rubleBalance}
-                bonusBalance={bonusBalance}
-                cardNumber={cardNumber}
-                onAddCard={handleAddCard}
-                onNavigate={handleNavigate}
-            />
+            <div className="px-6 pb-6">
+                <Main 
+                    rubleBalance={rubleBalance}
+                    bonusBalance={bonusBalance}
+                    cardNumber={cardNumber}
+                    onAddCard={handleAddCard}
+                    onNavigate={handleNavigate}
+                />
+            </div>
         </div>
     );
 }
