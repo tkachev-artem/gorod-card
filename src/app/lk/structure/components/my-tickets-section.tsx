@@ -13,7 +13,7 @@ export const MyTicketsSection = () => {
       </div>
       <div className={myTickets.content.container}>
         <div className={myTickets.content.title}>У вас пока нет билетов</div>
-        <div className={myTickets.content.subtitle}>Купите билет в разделе "Проездные билеты"</div>
+        <div className={myTickets.content.subtitle}>Купите билет в разделе &quot;Проездные билеты&quot;</div>
       </div>
     </div>
   );

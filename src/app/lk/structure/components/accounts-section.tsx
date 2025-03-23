@@ -1,10 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import { LkConfig } from '../../config';
-
-// Используем только необходимые стили из конфигурации
-const { accounts } = LkConfig.content.leftColumn;
 
 interface AccountsSectionProps {
   rubleBalance: number;

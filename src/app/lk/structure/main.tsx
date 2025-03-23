@@ -87,7 +87,6 @@ export const Main = ({
           {/* Правая часть с InfoSection */}
           <div className="flex-1 w-full h-full">
             <InfoSection 
-              cardNumber={cardNumber}
               onAddCard={onAddCard}
             />
           </div>

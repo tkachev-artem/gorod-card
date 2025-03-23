@@ -1,16 +1,21 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { api } from '@/app/lk/structure/lib/api';
 import { getCookie, setCookie, deleteCookie } from '@/utils/cookies';
+
+interface UserData {
+  email: string;
+  password: string;
+  name?: string;
+}
 
 interface UseAuthReturn {
   isAuthorized: boolean | null;
   isLoading: boolean;
   error: string | null;
-  login: (phone: string, password: string) => Promise<boolean>;
+  login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
-  register: (userData: any) => Promise<boolean>;
+  register: (userData: UserData) => Promise<boolean>;
 }
 
 export const useAuth = (): UseAuthReturn => {
@@ -74,13 +79,16 @@ export const useAuth = (): UseAuthReturn => {
     }
   };
 
-  const login = async (phone: string, password: string): Promise<boolean> => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const login = async (email: string, password: string): Promise<boolean> => {
     try {
       setIsLoading(true);
       setError(null);
 
       // Здесь должен быть запрос к API для входа
-      // const response = await api.auth.login({ phone, password });
+      // Мы не используем параметры email и password в этой mock-реализации,
+      // но они будут использоваться в реальном API запросе
+      // const response = await api.auth.login({ email, password });
       
       // Временное решение для демонстрации
       const mockResponse = { success: true, token: 'mock-token-12345' };
@@ -117,12 +125,15 @@ export const useAuth = (): UseAuthReturn => {
     setIsAuthorized(false);
   };
 
-  const register = async (userData: any): Promise<boolean> => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const register = async (userData: UserData): Promise<boolean> => {
     try {
       setIsLoading(true);
       setError(null);
 
       // Здесь должен быть запрос к API для регистрации
+      // Мы не используем параметр userData в этой mock-реализации,
+      // но он будет использоваться в реальном API запросе
       // const response = await api.auth.register(userData);
       
       // Временное решение для демонстрации

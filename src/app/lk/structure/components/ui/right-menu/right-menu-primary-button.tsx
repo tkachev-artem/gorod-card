@@ -1,6 +1,6 @@
 'use client';
 
-import React, { KeyboardEvent, ReactNode } from 'react';
+import React, { KeyboardEvent } from 'react';
 import Image from 'next/image';
 
 interface RightMenuPrimaryButtonProps {
@@ -26,7 +26,7 @@ export const RightMenuPrimaryButton = ({
     ? `/icon/right-button-menu/active/${activeIcon || icon}.svg` 
     : `/icon/right-button-menu/standard/${icon}.svg`;
   
-  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
     if (e.key === 'Enter' || e.key === ' ') {
       onClick();
     }

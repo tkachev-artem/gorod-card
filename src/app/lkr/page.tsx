@@ -7,7 +7,6 @@ import { getCookie, setCookie } from '@/utils/cookies';
 import { Header } from './structure/components/header';
 import { Main } from './structure/main';
 import { Loading } from './structure/components/loading';
-import { LkrConfig } from './config';
 
 export default function PersonalAccountLkr() {
     const router = useRouter();

@@ -6,11 +6,11 @@ import { Form } from '@/app/lk/structure/components/ui/form/form';
 import { BigButton } from '@/app/lk/structure/components/ui/button/big-button';
 import Link from 'next/link';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { api } from '@/app/lk/structure/lib/api';
 
-export default function Auth() {
+function AuthContent() {
     const searchParams = useSearchParams();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -35,7 +35,7 @@ export default function Auth() {
 
     // Получаем email из URL при загрузке страницы
     useEffect(() => {
-        const emailFromUrl = searchParams.get('email');
+        const emailFromUrl = searchParams?.get('email');
         if (emailFromUrl) {
             setEmail(emailFromUrl);
         }
@@ -151,5 +151,18 @@ export default function Auth() {
                 </Link>
             </main>
         </div>
+    );
+}
+
+export default function Auth() {
+    return (
+        <Suspense fallback={
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-500"></div>
+                <span className="ml-2">Загрузка...</span>
+            </div>
+        }>
+            <AuthContent />
+        </Suspense>
     );
 }

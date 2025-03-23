@@ -6,11 +6,10 @@ import { LkConfig } from '../../config';
 const { bottomRow } = LkConfig.content.rightColumn;
 
 interface InfoSectionProps {
-  cardNumber: string | null;
   onAddCard: () => void;
 }
 
-export const InfoSection = ({ cardNumber, onAddCard }: InfoSectionProps) => {
+export const InfoSection = ({ onAddCard }: InfoSectionProps) => {
   // Данные для новостей
   const newsItems = [
     {

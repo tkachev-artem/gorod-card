@@ -10,10 +10,6 @@ export const TicketsSection = ({ onNavigate }: TicketsSectionProps) => {
     onNavigate('/lkr/tickets/buy');
   };
 
-  const handleOpenTicket = () => {
-    onNavigate('/lkr/tickets/view');
-  };
-
   return (
     <div className="w-full h-full p-4 bg-white rounded-xl border border-gray-300 flex flex-col gap-4">
       <div className="flex items-center">

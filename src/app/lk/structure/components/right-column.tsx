@@ -47,7 +47,6 @@ export const RightColumn = ({
       
       {/* Нижний ряд */}
       <InfoSection 
-        cardNumber={cardNumber}
         onAddCard={onAddCard}
       />
     </div>

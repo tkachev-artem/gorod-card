@@ -4,7 +4,16 @@ import { useRouter } from 'next/navigation';
 import { api } from '@/app/lk/structure/lib/api';
 import { VerificationBox } from '@/app/lk/structure/components/ui/verification/verification-box';
 import { Logo } from '@/app/lk/structure/components/ui/logo/logo';
-import Image from 'next/image';
+
+// Расширяем интерфейс Window для глобального состояния
+declare global {
+    interface Window {
+        globalState?: {
+            hasAttemptedFetch: boolean;
+            hasFetchedSuccessfully: boolean;
+        };
+    }
+}
 
 // Сбрасываем глобальное состояние для компонента карты
 const resetCardState = () => {

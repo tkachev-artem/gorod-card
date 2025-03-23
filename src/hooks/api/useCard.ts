@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { api } from '@/app/lk/structure/lib/api';
+import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from './useAuth';
 
 interface CardInfo {
@@ -26,13 +25,7 @@ export const useCard = (): UseCardReturn => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (isAuthorized) {
-      fetchCardInfo();
-    }
-  }, [isAuthorized]);
-
-  const fetchCardInfo = async (): Promise<void> => {
+  const fetchCardInfo = useCallback(async (): Promise<void> => {
     if (!isAuthorized) return;
 
     try {
@@ -68,7 +61,13 @@ export const useCard = (): UseCardReturn => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [isAuthorized]);
+
+  useEffect(() => {
+    if (isAuthorized) {
+      fetchCardInfo();
+    }
+  }, [isAuthorized, fetchCardInfo]);
 
   const requestCard = async (): Promise<boolean> => {
     if (!isAuthorized) return false;
@@ -105,7 +104,7 @@ export const useCard = (): UseCardReturn => {
       
       // Временное решение для демонстрации
       const mockResponse = { 
-        success: true,
+        success: code.length === 6, // Проверяем длину кода для демонстрации
         cardNumber: '1234 5678 9012 3456', 
         balance: 0, 
         bonusBalance: 100,

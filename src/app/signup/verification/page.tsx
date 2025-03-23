@@ -4,12 +4,12 @@ import { VerificationGridConfig, HeaderConfig, BodyConfig } from "./config";
 import { Logo } from "@/app/lk/structure/components/ui/logo/logo";
 import { VerificationBox } from "@/app/lk/structure/components/ui/verification/verification-box";
 import { BigButton } from "@/app/lk/structure/components/ui/button/big-button";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { api } from '@/app/lk/structure/lib/api';
 import Link from 'next/link';
 
-export default function VerificationPage() {
+function VerificationPageContent() {
     const [pin, setPin] = useState(['', '', '', '', '', '']);
     const [isComplete, setIsComplete] = useState(false);
     const [error, setError] = useState('');
@@ -137,5 +137,18 @@ export default function VerificationPage() {
                 </div>
             </main>
         </div>  
+    );
+}
+
+export default function VerificationPage() {
+    return (
+        <Suspense fallback={
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-500"></div>
+                <span className="ml-2">Загрузка...</span>
+            </div>
+        }>
+            <VerificationPageContent />
+        </Suspense>
     );
 }

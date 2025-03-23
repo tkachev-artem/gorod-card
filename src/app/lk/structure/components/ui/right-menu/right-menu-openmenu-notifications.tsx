@@ -1,11 +1,8 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { RightMenuInButton } from './right-menu-in-button';
 
 export const RightMenuOpenMenuNotifications = () => {
-    const router = useRouter();
-    
     const handleNavigate = (path: string) => {
         console.log('Перенаправление на:', path);
         window.location.href = path;

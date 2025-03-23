@@ -1,10 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import { LkConfig } from '../../config';
-
-// Используем только необходимые стили из конфигурации
-const { shop } = LkConfig.content.leftColumn;
 
 interface ShopSectionProps {
   onNavigate: (path: string) => void;
