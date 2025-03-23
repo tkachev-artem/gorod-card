@@ -34,11 +34,11 @@ export const Main = ({
 
   return (
     <main ref={mainRef} className="min-h-screen w-full flex flex-col">
-      <div className="flex flex-col gap-6 w-full flex-1">
+      <div className="flex flex-col gap-4 sm:gap-6 w-full flex-1">
         {/* Верхний контейнер */}
-        <div className="flex flex-col lg:flex-row gap-6 w-full">
+        <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 w-full">
           {/* Левая колонка с AccountsSection и ShopSection */}
-          <div className="flex flex-col gap-6 w-full lg:w-1/5 shrink-0">
+          <div className="flex flex-col gap-4 sm:gap-6 w-full lg:w-1/5 shrink-0">
             <div className="w-full h-full">
               <AccountsSection 
                 rubleBalance={rubleBalance}
@@ -52,8 +52,8 @@ export const Main = ({
           </div>
           
           {/* Правый ряд с CardContainer, TicketsSection и MyTicketsSection */}
-          <div className="flex flex-col md:flex-row gap-6 w-full flex-1">
-            <div className="w-full h-full md:w-1/3">
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full flex-1">
+            <div className="w-full sm:w-1/3 h-full">
               <CardContainer 
                 cardNumber={cardNumber || undefined}
                 onAddCard={onAddCard}
@@ -61,20 +61,20 @@ export const Main = ({
               />
             </div>
             
-            <div className="w-full h-full flex-1">
+            <div className="w-full sm:w-1/3 h-full">
               <TicketsSection onNavigate={onNavigate} />
             </div>
             
-            <div className="w-full h-full flex-1">
+            <div className="w-full sm:w-1/3 h-full">
               <MyTicketsSection />
             </div>
           </div>
         </div>
         
         {/* Нижний единый контейнер */}
-        <div className="flex flex-col lg:flex-row gap-6 w-full">
+        <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 w-full">
           {/* Левая колонка с RoutesSection и PhysicalCardSection */}
-          <div className="flex flex-col gap-6 w-full lg:w-1/5 shrink-0">
+          <div className="flex flex-col gap-4 sm:gap-6 w-full lg:w-1/5 shrink-0">
             <div className="w-full h-full">
               <RoutesSection onNavigate={onNavigate} />
             </div>

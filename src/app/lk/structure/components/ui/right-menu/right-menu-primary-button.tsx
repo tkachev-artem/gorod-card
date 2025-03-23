@@ -5,23 +5,27 @@ import Image from 'next/image';
 
 interface RightMenuPrimaryButtonProps {
   icon: string;
-  altname: string;
+  activeIcon?: string;
   onClick: () => void;
+  isActive?: boolean;
+  altname: string;
   width?: number;
   height?: number;
-  activeIcon?: string;
-  isActive: boolean;
 }
 
-export function RightMenuPrimaryButton({ 
-  onClick, 
+export const RightMenuPrimaryButton = ({ 
   icon, 
-  altname, 
-  width = 20, 
-  height = 20,
-  activeIcon,
-  isActive
-}: RightMenuPrimaryButtonProps) {
+  activeIcon, 
+  onClick, 
+  isActive = false, 
+  altname,
+  width = 20,
+  height = 20
+}: RightMenuPrimaryButtonProps) => {
+  const iconPath = isActive 
+    ? `/icon/right-button-menu/active/${activeIcon || icon}.svg` 
+    : `/icon/right-button-menu/standard/${icon}.svg`;
+  
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter' || e.key === ' ') {
       onClick();
@@ -32,19 +36,20 @@ export function RightMenuPrimaryButton({
     <div className='relative'>
       <button 
         onClick={onClick}
-        className='bg-white w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-200'
+        className={`w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-lg sm:rounded-xl border ${isActive ? 'bg-gray-500 border-gray-600' : 'bg-white border-gray-300'}`}
         onKeyDown={handleKeyDown}
         tabIndex={0}
         role="button"
         aria-label={altname}
       >
         <Image 
-          src={`/icon/${isActive && activeIcon ? activeIcon : icon}.svg`}
+          src={iconPath}
           alt={altname}
           width={width}
           height={height}
+          className="w-5 h-5 sm:w-6 sm:h-6"
         />
       </button>
     </div>
   );
-} 
+}; 

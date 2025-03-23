@@ -249,9 +249,9 @@ export default function PersonalAccount() {
     }
     
     return (
-        <div className="w-full min-h-screen bg-white flex flex-col gap-6">
+        <div className="w-full min-h-screen bg-white flex flex-col gap-4 sm:gap-6">
             {/* Верхняя панель */}
-            <div className="px-6 pt-6">
+            <div className="px-3 sm:px-4 md:px-6 pt-3 sm:pt-4 md:pt-6" style={{ "--header-height": "4rem" } as React.CSSProperties}>
                 <Header 
                     onNavigate={handleNavigate}
                     isMenuOpen={isMenuOpen}
@@ -262,7 +262,7 @@ export default function PersonalAccount() {
             </div>
             
             {/* Основной контент */}
-            <div className="px-6 pb-6">
+            <div className="px-3 sm:px-4 md:px-6 pb-3 sm:pb-4 md:pb-6">
                 <Main 
                     rubleBalance={rubleBalance}
                     bonusBalance={bonusBalance}

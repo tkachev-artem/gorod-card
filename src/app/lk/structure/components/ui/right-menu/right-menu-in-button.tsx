@@ -20,6 +20,8 @@ export function RightMenuInButton({ children, onClick, borderColor = 'border-gra
         <button 
             className={`w-full text-center font-semibold flex items-center gap-4 px-4 py-2 border ${borderColor} ${bgColor} ${textColor} ${hoverColor} ${hoverTextColor} rounded-lg`}
             onClick={onClick}
+            aria-label={altname}
+            tabIndex={0}
         >
             <div className="w-[24px] flex items-center justify-center">
                 <Image 
