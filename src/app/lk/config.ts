@@ -15,7 +15,7 @@ export const LkConfig = {
             text: "text-gray-500 text-sm sm:text-base md:text-lg font-semibold"
         },
         profile: {
-            container: "flex items-center gap-3 sm:gap-4 justify-end relative mt-3 md:mt-0"
+            container: "flex items-center gap-3 sm:gap-4 justify-end relative mt-0 md:mt-0"
         }
     },
     

@@ -8,7 +8,7 @@ export interface FormConfig {
 }
 
 export const FormConfig = {
-    container: "w-full p-3 text-start rounded-md border bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-600",
+    container: "w-full p-3 text-start rounded-md border bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-600 text-sm sm:text-base",
     containerInput: "w-full",
 }
 
@@ -21,6 +21,7 @@ export function Form({placeholder, type, value, onChange}: FormConfig) {
                 value={value}
                 onChange={onChange}
                 className={FormConfig.container}
+                autoComplete={type === "password" ? "current-password" : type === "email" ? "email" : "off"}
             />
         </div>
     )

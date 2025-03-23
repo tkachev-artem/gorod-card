@@ -1,14 +1,14 @@
 export const AuthGridConfig = {
-    container: "flex min-h-screen flex-col items-center justify-center sm:mt-0 md:mt-0 lg:mt-0 xl:-mt-20 2xl:-mt-40 3xl:-mt-60",
+    container: "flex min-h-screen flex-col items-center justify-center p-4 sm:p-6",
 };
 
 export const HeaderConfig = {
-    container: "flex flex-col gap-4 mx-auto my-6 items-center justify-center",
+    container: "flex flex-col gap-4 mx-auto mb-6 items-center justify-center w-full max-w-xs sm:max-w-md",
 };
 
 export const BodyConfig = {
 
-    container: "w-full max-w-md flex flex-col gap-4 mx-auto my-4 items-center justify-center",
+    container: "w-full max-w-xs sm:max-w-md flex flex-col gap-4 mx-auto items-center justify-center",
 
     info: {
         heading: "С возвращением!",
@@ -38,7 +38,7 @@ export const BodyConfig = {
     link: {
         text: "Нет аккаунта?",
         href: "/signup",
-        className: "text-gray-500 text-sm font-medium underline",
+        className: "text-gray-500 text-sm font-medium underline mt-2",
     },
 };
 

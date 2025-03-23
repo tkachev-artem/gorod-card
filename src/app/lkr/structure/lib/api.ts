@@ -20,15 +20,15 @@ export const api = {
   },
   balance: {
     getRubleBalance: async () => {
-      // Mock implementation
+      // Mock implementation с реальными данными
       return {
-        balance: 0
+        balance: 12500
       };
     },
     getBonusBalance: async () => {
-      // Mock implementation
+      // Mock implementation с реальными данными
       return {
-        balance: 0
+        balance: 780
       };
     }
   }

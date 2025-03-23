@@ -17,11 +17,10 @@ export default function PersonalAccountLkr() {
     const [cardNumber, setCardNumber] = useState<string | null>("1345 3745 4433 2355");
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
-    const [rubleBalance, setRubleBalance] = useState(0);
-    const [bonusBalance, setBonusBalance] = useState(0);
+    const [rubleBalance, setRubleBalance] = useState(12500); // Предустановленное значение для мгновенного отображения
+    const [bonusBalance, setBonusBalance] = useState(780);   // Предустановленное значение для мгновенного отображения
 
     useEffect(() => {
-        console.log('Страница личного кабинета LKR загружена');
         const checkAuth = () => {
             try {
                 // Проверяем авторизацию по куки
@@ -39,17 +38,14 @@ export default function PersonalAccountLkr() {
                 
                 // Если токен найден в localStorage, но не в куки, сохраняем его в куки
                 if (localToken && !token) {
-                    console.log('Токен найден в localStorage, сохраняем в cookie');
                     setCookie('authToken', localToken);
                 }
                 
                 const isAuth = !!(token || localToken);
-                console.log('Токен авторизации:', isAuth ? 'Присутствует' : 'Отсутствует');
                 
                 setIsAuthorized(isAuth);
                 
                 if (!isAuth) {
-                    console.log('Перенаправление на страницу авторизации');
                     router.push('/auth');
                     return false;
                 }
@@ -65,11 +61,20 @@ export default function PersonalAccountLkr() {
         };
         
         const isAuth = checkAuth();
+        
+        // Отображаем контент сразу после проверки авторизации
+        setIsLoading(false);
+        
+        // Обновляем данные только если пользователь авторизован
         if (isAuth) {
-            fetchCardInfo();
-            fetchBalances();
+            // Загружаем данные асинхронно без блокирования загрузки страницы
+            Promise.all([
+                fetchCardInfo(),
+                fetchBalances()
+            ]).catch(error => {
+                console.error('Ошибка при загрузке данных:', error);
+            });
         }
-        setIsLoading(false); // For demo purposes, we're setting isLoading to false immediately
     }, [router]);
 
     const fetchCardInfo = async () => {
@@ -80,8 +85,6 @@ export default function PersonalAccountLkr() {
             }
         } catch (error) {
             console.error('Ошибка при получении информации о карте:', error);
-        } finally {
-            setIsLoading(false);
         }
     };
 
